@@ -1,3 +1,22 @@
+function mapTileId(id) {
+    const skeleton = 221
+    const column = 580
+    const wall = 554
+    const floor = 0
+
+    switch (id) {
+        case 1:
+            return wall
+        case 2:
+            return column
+        case 10:
+            return skeleton
+        case 0:
+        default:
+            return floor
+    }
+}
+
 const scene = {
     preload: function () {
         this.load.spritesheet(
@@ -15,19 +34,18 @@ const scene = {
         let level = [
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 2, 0, 0, 0, 10, 2, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 2, 10, 0, 0, 0, 2, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ]
 
-        const wall = 554
-        const floor = 0
-        level = level.map(r => r.map(t => t == 1 ? wall : floor))
+
+        level = level.map(r => r.map(t => mapTileId(t)))
 
         const tileSize = 16
         const config = {
